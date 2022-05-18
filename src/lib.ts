@@ -33,6 +33,7 @@ export const parseCsv = <T>(readStream: fs.ReadStream): Promise<T[]> => {
   });
 };
 
+// FIXME: Return null if all values are identical
 const getKeyWithBiggestValue = (obj: Record<string, number>) =>
   Object.keys(obj).reduce((prev, current) => (obj[prev] > obj[current] ? prev : current));
 
