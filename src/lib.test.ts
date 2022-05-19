@@ -4,8 +4,8 @@ import fs from "fs";
 import { Speech } from "./types";
 
 const readStream = fs.createReadStream(path.join(__dirname, "..", "test-data", "valid.csv"));
-let parseResult: Speech[] = [];
-let evaluatedSpeeches: ReturnType<typeof evaluateSpeeches>;
+let parsedCsv: Speech[] = [];
+let evaluation: ReturnType<typeof evaluateSpeeches>;
 
 const expectedData: Speech[] = [
   {
@@ -14,7 +14,6 @@ const expectedData: Speech[] = [
     Date: "2012-10-30",
     Words: 5310,
   },
-
   {
     Speaker: "Bernhard Belling",
     Topic: "Coal Subsidies",
@@ -35,30 +34,29 @@ const expectedData: Speech[] = [
     Words: 911,
   },
 ];
+
 beforeAll(async () => {
-  parseResult = await parseCsv(readStream);
-  evaluatedSpeeches = evaluateSpeeches(parseResult);
+  parsedCsv = await parseCsv(readStream);
+  evaluation = evaluateSpeeches(parsedCsv);
 });
 
 describe("CSV Parser", () => {
   it("should correctly parse csv file", () => {
-    console.log(parseResult);
-
-    expect(parseResult).toIncludeAllMembers(expectedData);
+    expect(parsedCsv).toIncludeAllMembers(expectedData);
   });
 });
 
 describe("evaluateSpeeches", () => {
   test("leastWordy", () => {
-    expect(evaluatedSpeeches.leastWordy).toBe("Alexander Abel");
+    expect(evaluation.leastWordy).toBe("Alexander Abel");
   });
 
   test("mostWordy", () => {
-    expect(evaluatedSpeeches.mostWordy).toBe("Caesare Collins");
+    expect(evaluation.mostWordy).toBe("Caesare Collins");
   });
 
   test("totalSpeechesPerSpeaker", () => {
-    expect(evaluatedSpeeches.totalSpeechesPerSpeaker).toStrictEqual({
+    expect(evaluation.totalSpeechesPerSpeaker).toStrictEqual({
       "Alexander Abel": 2,
       "Bernhard Belling": 1,
       "Caesare Collins": 1,
@@ -66,6 +64,6 @@ describe("evaluateSpeeches", () => {
   });
 
   test("mostSpeeches", () => {
-    expect(evaluatedSpeeches.mostSpeeches).toBe("Alexander Abel");
+    expect(evaluation.mostSpeeches).toBe("Alexander Abel");
   });
 });
