@@ -1,6 +1,5 @@
-import { evaluateSpeeches, parseCsv } from "./lib";
 import path from "path";
-import fs from "fs";
+import { evaluateSpeeches, parseCsv } from "./lib";
 import { Speech } from "./types";
 
 let parsedCsv: Speech[] = [];
@@ -40,7 +39,7 @@ const expectedData: Speech[] = [
 ];
 
 beforeAll(async () => {
-  parsedCsv = await parseCsv(path.join(__dirname, "..", "test-data", "valid.csv"));
+  parsedCsv = await parseCsv(path.join(__dirname, "..", "test-data", "testing.csv"));
   evaluation = evaluateSpeeches(parsedCsv);
 });
 

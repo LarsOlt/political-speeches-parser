@@ -1,10 +1,10 @@
 import { parse, Parser } from "csv-parse";
 import fs from "fs";
-import { Speech } from "./types";
-import https from "https";
 import http from "http";
-import path from "path";
+import https from "https";
 import { nanoid } from "nanoid";
+import path from "path";
+import { DownloadFilesResponse, Speech } from "./types";
 
 export const parseCsv = <T>(filePath: string): Promise<T[]> => {
   return new Promise((resolve, reject) => {
@@ -85,13 +85,6 @@ export const evaluateSpeeches = (data: Speech[]) => {
   };
 };
 
-interface DownloadFilesResponse {
-  errors: null | string[];
-  data: {
-    fileLocations: string[];
-  } | null;
-}
-
 const downloadFile = (url: string): Promise<{ error?: string; fileLocation?: string }> =>
   new Promise((resolve) => {
     const fileLocation = path.join(process.cwd(), `${nanoid()}.csv`);
@@ -107,7 +100,6 @@ const downloadFile = (url: string): Promise<{ error?: string; fileLocation?: str
 
       res.pipe(fileStream);
 
-      // after download completed close filestream
       fileStream.on("finish", () => {
         fileStream.close();
         console.log("Download Completed");

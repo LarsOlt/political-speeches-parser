@@ -4,3 +4,10 @@ export interface Speech {
   Date: string;
   Words: number;
 }
+
+export interface DownloadFilesResponse {
+  errors: null | string[];
+  data: {
+    fileLocations: string[];
+  } | null;
+}

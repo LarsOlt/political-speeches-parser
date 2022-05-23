@@ -51,10 +51,12 @@ npm run start
 
 The following endpoints are available:
 
-- GET /evaluation?url=url1&url=url2
-  - One or multiple url query params can be supplied
-- GET /example-file
-  - Returns the internal valid csv that is used for testing
+- GET /evaluation?url=...&url=...
+  - url: string | string[]
+- GET /example-file?fileName=original.csv
+  - Returns a file with example data
+  - fileName?: "original.csv" | "testing.csv"
+    - default: "testing.csv"
 
 Example:
 
