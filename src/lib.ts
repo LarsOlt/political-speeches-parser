@@ -102,7 +102,6 @@ const downloadFile = (url: string): Promise<{ error?: string; fileLocation?: str
 
       fileStream.on("finish", () => {
         fileStream.close();
-        console.log("Download Completed");
         resolve({ fileLocation });
       });
     });

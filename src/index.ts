@@ -6,7 +6,11 @@ import fs from "fs/promises";
 import path from "path";
 import { downloadFiles, evaluateSpeeches, parseCsv } from "./lib";
 
+import morgan from "morgan";
+
 const app = express();
+
+app.use(morgan("tiny"));
 
 const validate: RequestHandler = (req, res, next) => {
   const errors = validationResult(req);
