@@ -35,3 +35,27 @@ As an example, for the given input above the expected result is:
   "leastWordy": "Caesare Collins"
 }
 ```
+
+## Documentation
+
+Requirements:
+
+- Installed Node.js version >= 7.5.0
+
+Usage:
+
+```
+npm i
+npm run start
+```
+
+The following endpoints are available:
+
+- GET /evaluation?url=url1&url=url2
+  - One or multiple url query params can be supplied
+- GET /example-file
+  - Returns the internal valid csv that is used for testing
+
+Example:
+
+`GET: localhost:5000/evaluation?url=http://127.0.0.1:5000/example-file`
